@@ -1,366 +1,252 @@
 <!DOCTYPE html>
-<html lang="en"
-      data-default-theme="minimal"
-      data-theme-lock="minimal"
-      data-default-mode="dark"
-      data-default-brand="#0ea5e9">
+<html lang="en" data-world="galley-proof">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diff Checker</title>
+    <title>Diff Checker - Compare Two Texts Online and See Every Difference</title>
     <!-- SEO-META-START -->
-    <meta name="description" content="Compare two pieces of text and highlight the differences.">
-    <meta name="theme-color" content="#0ea5e9">
+    <meta name="description" content="Compare two texts and see every difference marked like a proofreader marks a galley: struck-through words with a dele in the margin, carets where words go in, inserted words written beside the line. Line and word level, nothing uploaded.">
+    <meta name="theme-color" content="#ece5d6">
     <link rel="canonical" href="https://crusher-labs.github.io/diff-checker/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Web Utility Tools by CRUSHER">
-    <meta property="og:title" content="Diff Checker — Web Utility Tools by CRUSHER">
-    <meta property="og:description" content="Compare two pieces of text and highlight the differences.">
+    <meta property="og:title" content="Diff Checker - Web Utility Tools by CRUSHER">
+    <meta property="og:description" content="Compare two texts and see every difference marked like a proofreader marks a galley: struck-through words with a dele in the margin, carets where words go in, inserted words written beside the line. Line and word level, nothing uploaded.">
     <meta property="og:url" content="https://crusher-labs.github.io/diff-checker/">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Diff Checker — Web Utility Tools by CRUSHER">
-    <meta name="twitter:description" content="Compare two pieces of text and highlight the differences.">
+    <meta name="twitter:title" content="Diff Checker - Web Utility Tools by CRUSHER">
+    <meta name="twitter:description" content="Compare two texts and see every difference marked like a proofreader marks a galley: struck-through words with a dele in the margin, carets where words go in, inserted words written beside the line. Line and word level, nothing uploaded.">
     <!-- SEO-META-END -->
     <link rel="icon" href="data:,">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://unpkg.com https://api.web3forms.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://api.web3forms.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self';">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/crusher-ui-kit@1.2.1/dist/crusher-ui.min.css" integrity="sha384-Y8s5q9n5rodpO7nSyRNxbxlns7zYnuOEymBbSwEg9GmW2R/Zt3U4BWOZLb3q2NjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/crusher-ui-kit@1.2.1/dist/themes/minimal.css" integrity="sha384-FLhZ0Qhy8nUbGu4oSm0Vs5uPCL1RgZn+Ld2/fj3PrYDUMqltf2vObwpWHiOzRx4l" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/crusher-ui-kit@1.2.1/dist/static/tool-shell.css" integrity="sha384-mWfiqr7mGlAa+yVw+7vt40gfFTtAhs2jjBYbTLTvNRYUtZEtAJ0YPHlTdB8kuhSE" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/crusher-ui-kit@1.2.1/dist/static/tool-shell.js" integrity="sha384-gNDnPKn5AoF0e4Q555fGbM+snO+UCP3/z4ErG3cyS/Akusg/bzTO+AYmG1WAMnab" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&family=Courier+Prime:wght@400;700&display=swap">
     <style>
-        body {
-        font-family: 'Inter', sans-serif;
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-    /* === Premium polish (2026-05-14) === */
-    body { position: relative; isolation: isolate; }
-    body::before {
-        content: '';
-        position: fixed;
-        inset: 0 0 auto 0;
-        block-size: 32rem;
-        background:
-            radial-gradient(ellipse 70% 50% at 50% -5%,
-                color-mix(in srgb, var(--crusher-color-brand-primary) 18%, transparent),
-                transparent 65%);
-        pointer-events: none;
-        z-index: -1;
-        opacity: 0.85;
-    }
-    ::selection { background: color-mix(in srgb, var(--crusher-color-brand-primary) 30%, transparent); }
-        /* PREMIUM-INPUT-START (until framework-feedback Section 6 ships) */
-        .crusher-tool-control {
-            background: color-mix(in srgb, var(--crusher-background-surface) 72%, transparent);
-            -webkit-backdrop-filter: blur(8px);
-            backdrop-filter: blur(8px);
-            border: 1px solid color-mix(in srgb, var(--crusher-border-primary) 70%, transparent);
-            color: var(--crusher-text-primary);
-            padding: var(--crusher-spacing-3) var(--crusher-spacing-4);
-            border-radius: var(--crusher-radius-lg);
-            font-family: inherit;
-            font-size: 0.9375rem;
-            line-height: 1.5;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-        }
-        .crusher-tool-control:hover { border-color: var(--crusher-border-primary); }
-        .crusher-tool-control:focus-visible {
-            border-color: var(--crusher-color-brand-primary);
-            box-shadow: 0 0 0 4px color-mix(in srgb, var(--crusher-color-brand-primary) 18%, transparent);
-            outline: none;
-            background: var(--crusher-background-surface);
-        }
-        .crusher-tool-control::placeholder {
-            color: var(--crusher-text-secondary);
-            opacity: 0.7;
-        }
-        .crusher-tool-control:focus::placeholder { opacity: 0.4; }
-        textarea.crusher-tool-control { resize: vertical; min-block-size: 4.5rem; }
-        /* PREMIUM-INPUT-END */
-    .crusher-tool-title {
-        font-family: 'Fraunces', 'Georgia', serif;
-        font-optical-sizing: auto;
-        font-variation-settings: 'opsz' 48, 'SOFT' 30;
-        font-weight: 500;
-        font-style: normal;
-        font-size: clamp(2rem, 4.5vw, 3rem);
-        line-height: 1.05;
-        letter-spacing: -0.025em;
-    }
-    .crusher-tool-action {
-        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-    .crusher-tool-action:hover:not([disabled]) {
-        transform: translateY(-1px);
-        box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--crusher-color-brand-primary) 35%, transparent);
-    }
-        .tool-mono { font-family: 'JetBrains Mono', monospace; }
 
-        .tool-stack { display: grid; gap: var(--crusher-spacing-6); max-width: 56rem; margin-inline: auto; }
-        .tool-grid {
-            display: grid;
-            gap: var(--crusher-spacing-6);
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
-        }
-        .tool-label {
-            display: block;
-            margin-bottom: var(--crusher-spacing-1);
-            font-size: var(--crusher-font-size-sm);
-            color: var(--crusher-text-secondary);
-        }
-        textarea.crusher-tool-control {
-            min-block-size: 12rem;
-            padding: var(--crusher-spacing-3);
-            font-size: var(--crusher-font-size-sm);
-        }
-        .tool-action-row {
-            display: flex;
-            justify-content: center;
-            margin-block: var(--crusher-spacing-6);
-        }
-        .tool-action {
-            padding-inline: var(--crusher-spacing-6);
-            padding-block: var(--crusher-spacing-2);
-            border-radius: var(--crusher-radius-full);
-            font-weight: 600;
-        }
-        .tool-diff-output {
-            padding: var(--crusher-spacing-6);
-            font-size: var(--crusher-font-size-sm);
-            line-height: var(--crusher-line-height-relaxed);
-            white-space: pre-wrap;
-            min-block-size: 4rem;
-        }
-        .tool-diff-output .diff-token {
-            display: inline;
-            padding-inline: var(--crusher-spacing-1);
-            border-radius: var(--crusher-radius-sm);
-        }
-        .tool-diff-output .diff-same {
-            color: var(--crusher-text-secondary);
-        }
-        .tool-diff-output .diff-added {
-            background-color: #dcfce7;
-            color: #166534;
-        }
-        .tool-diff-output .diff-removed {
-            background-color: #fee2e2;
-            color: #991b1b;
-            text-decoration: line-through;
-        }
-        html[data-mode="dark"] .tool-diff-output .diff-added {
-            background-color: #14532d;
-            color: #dcfce7;
-        }
-        html[data-mode="dark"] .tool-diff-output .diff-removed {
-            background-color: #7f1d1d;
-            color: #fee2e2;
-        }
+    :root { --room:#ece5d6; --paper:#fbf8f0; --ink:#2b2622; --muted:#6f665c; --hair:#d8cfbd; --pen:#c8102e; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--room); color:var(--ink); font-family:'Spectral', Georgia, serif; }
+    main { max-width:1080px; margin:0 auto; padding:40px 20px 64px; }
+    .kicker { margin:0 0 10px; font:700 11px 'Courier Prime', monospace; letter-spacing:.24em; text-transform:uppercase; color:var(--muted); }
+    h1 { margin:0; font:600 clamp(30px, 4.4vw, 46px)/1.05 'Spectral', Georgia, serif; }
+    .lede { margin:12px 0 26px; max-width:62ch; font-size:17px; line-height:1.55; color:var(--muted); }
+    .copies { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .copies label { display:block; font:700 11px 'Courier Prime', monospace; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+    textarea { width:100%; min-height:190px; resize:vertical; padding:14px 16px; border:1px solid var(--hair); border-radius:2px; background:var(--paper); color:var(--ink); font:14px/1.6 'Courier Prime', monospace; outline:none; }
+    textarea:focus { border-color:var(--ink); }
+    .bar { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin:16px 0 0; }
+    .key { padding:10px 16px; border:1px solid var(--ink); border-radius:2px; background:var(--ink); color:#fff; font:700 12px 'Courier Prime', monospace; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; }
+    .key.ghost { background:transparent; color:var(--ink); }
+    .opt { display:inline-flex; gap:7px; align-items:center; font-size:14px; color:var(--muted); }
+    .opt input { accent-color:var(--pen); }
+    .galley { margin-top:28px; background:var(--paper); border:1px solid var(--hair); box-shadow:0 14px 30px rgba(0,0,0,.12); padding:0 0 26px; }
+    .ghead { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:12px 20px; border-bottom:1px dashed var(--hair); font:12px 'Courier Prime', monospace; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+    .ghead b { color:var(--pen); font-weight:700; }
+    .ln { display:grid; grid-template-columns: 44px minmax(0, 1fr) 210px; gap:0 14px; padding:2px 20px 2px 10px; align-items:baseline; }
+    .ln .n { font:11px 'Courier Prime', monospace; color:#b5ab98; text-align:right; }
+    .ln .t { font-size:17px; line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+    .ln .m { font:italic 15px/1.35 'Spectral', Georgia, serif; color:var(--pen); border-left:1px solid var(--hair); padding-left:12px; min-height:1em; word-break:break-word; }
+    .ln.chg { background:rgba(200,16,46,.035); }
+    .t del { color:var(--pen); text-decoration:line-through; text-decoration-thickness:1.5px; }
+    .t ins { text-decoration:none; color:var(--pen); font-style:italic; }
+    .caret { color:var(--pen); font-weight:700; }
+    .dele { display:inline-block; width:22px; height:16px; vertical-align:-3px; }
+    .m .sl { margin:0 4px; font-style:normal; }
+    .empty { padding:40px 20px; text-align:center; color:var(--muted); font-style:italic; }
+    .notes { margin-top:44px; max-width:72ch; }
+    .notes h2 { margin:0 0 10px; font:600 26px 'Spectral', Georgia, serif; }
+    .notes h3 { margin:16px 0 6px; font-size:16px; font-weight:600; }
+    .notes p { margin:0 0 10px; font-size:16px; line-height:1.65; }
+    .notes details { border-top:1px solid var(--hair); } .notes summary { cursor:pointer; padding:10px 0; font-weight:600; font-size:15px; }
+    .foot { margin-top:30px; display:flex; flex-wrap:wrap; gap:18px; align-items:center; font:12px 'Courier Prime', monospace; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+    .foot a { white-space:nowrap; }
+    .foot a { color:var(--ink); }
+    .tool-feedback { margin-top:14px; font-size:13px; color:var(--muted); }
+    @media (max-width: 760px) { main { padding:28px 14px 56px; } .copies { grid-template-columns:1fr; } .ln { grid-template-columns: 30px minmax(0, 1fr); padding:4px 12px 4px 6px; } .ln .m { grid-column:2; border-left:0; padding-left:0; border-top:1px dotted var(--hair); margin-top:2px; font-size:14px; } .ln .m:empty { display:none; } .ln .t { font-size:16px; } }
 
-        .tool-feedback {
-            width: min(100%, 56rem);
-            margin: var(--crusher-spacing-8) auto var(--crusher-spacing-6);
-            padding-inline: var(--crusher-spacing-4);
-        }
-        .tool-feedback-trigger {
-            cursor: pointer;
-            padding: var(--crusher-spacing-2) var(--crusher-spacing-3);
-            font-size: var(--crusher-font-size-sm);
-            color: var(--crusher-text-secondary);
-            border-radius: var(--crusher-radius-md);
-            list-style: none;
-            display: inline-flex;
-            align-items: center;
-            gap: var(--crusher-spacing-2);
-            transition: color var(--crusher-motion-duration-fast) var(--crusher-motion-easing-standard);
-        }
-        .tool-feedback-trigger::-webkit-details-marker { display: none; }
-        .tool-feedback-trigger::before {
-            content: '+';
-            display: inline-block;
-            font-weight: 700;
-            color: var(--crusher-color-brand-primary);
-        }
-        .tool-feedback-details[open] .tool-feedback-trigger::before { content: '−'; }
-        .tool-feedback-trigger:hover { color: var(--crusher-color-brand-primary); }
-        .tool-feedback-form {
-            margin-top: var(--crusher-spacing-3);
-            padding: var(--crusher-spacing-4);
-            border: 1px solid var(--crusher-border-primary);
-            border-radius: var(--crusher-radius-lg);
-            background: var(--crusher-background-surface);
-            display: grid;
-            gap: var(--crusher-spacing-3);
-        }
-        .tool-feedback-field { display: grid; gap: var(--crusher-spacing-1); }
-        .tool-feedback-field > span {
-            font-size: var(--crusher-font-size-xs);
-            color: var(--crusher-text-secondary);
-            font-weight: 500;
-        }
-        .tool-feedback-submit {
-            padding-inline: var(--crusher-spacing-4);
-            padding-block: var(--crusher-spacing-2);
-        }
-        .tool-feedback-submit[disabled] { opacity: 0.6; cursor: not-allowed; }
-        .tool-feedback-status {
-            margin: 0;
-            min-block-size: 1.25rem;
-            font-size: var(--crusher-font-size-sm);
-            color: var(--crusher-text-secondary);
-        }
-        .tool-feedback-status[data-kind="ok"] { color: var(--crusher-color-brand-primary); }
-        .tool-feedback-status[data-kind="error"] { color: #dc2626; }
-        .tool-feedback-honey { position: absolute; left: -9999px; top: -9999px; opacity: 0; pointer-events: none; }
+    .tool-feedback summary { cursor:pointer; list-style:none; display:inline-flex; gap:8px; align-items:center; }
+    .tool-feedback summary::-webkit-details-marker { display:none; }
+    .tool-feedback summary::before { content:'+'; font-weight:700; }
+    .tool-feedback[open] summary::before { content:'\2212'; }
+    .tool-feedback form { display:grid; gap:10px; margin-top:12px; max-width:520px; }
+    .tool-feedback label { display:grid; gap:4px; font-size:12px; }
+    .tool-feedback textarea, .tool-feedback input[type="email"] { font:14px/1.5 inherit; padding:9px 11px; border:1px solid currentColor; background:transparent; color:inherit; border-radius:4px; }
+    .tool-feedback button { justify-self:start; padding:8px 16px; font:600 13px inherit; cursor:pointer; border:1px solid currentColor; background:transparent; color:inherit; border-radius:4px; }
+    .tool-feedback-honey { position:absolute; left:-9999px; top:-9999px; opacity:0; pointer-events:none; }
+    #tool-feedback-status { margin:0; min-height:1.2em; font-size:13px; }
+    #tool-feedback-status[data-kind="error"] { color:#c0392b; }
     </style>
 </head>
-<body class="crusher-tool-page">
+<body>
 
-    <main class="crusher-tool-shell">
-        <header class="crusher-tool-header">
-            <h1 class="crusher-tool-title">Diff Checker</h1>
-            <p class="crusher-tool-lede">Compare two texts to find differences.</p>
-        </header>
-
-        <div class="tool-stack">
-            <div class="tool-grid">
-                <div>
-                    <label for="text1" class="tool-label">Original Text</label>
-                    <textarea id="text1" rows="8" class="crusher-tool-control tool-mono" placeholder="Original text..."></textarea>
-                </div>
-                <div>
-                    <label for="text2" class="tool-label">New Text</label>
-                    <textarea id="text2" rows="8" class="crusher-tool-control tool-mono" placeholder="New text..."></textarea>
-                </div>
-            </div>
-
-            <div class="tool-action-row">
-                <button id="compare-btn" type="button" class="crusher-tool-action tool-action">Compare</button>
-            </div>
-
-            <section id="diff-output" class="crusher-tool-surface tool-diff-output tool-mono"></section>
-        </div>
+    <main>
+      <p class="kicker">Galley proof · marked in red</p>
+      <h1>Diff Checker</h1>
+      <p class="lede">Paste the original and the revised copy. The proof is set from the original and marked the way a proofreader marks it: struck-through words with a dele in the margin, a caret where words go in, and the inserted words written beside the line.</p>
+      <div class="copies">
+        <div><label for="a">Original copy</label><textarea id="a" spellcheck="false" placeholder="The text as it was..."></textarea></div>
+        <div><label for="b">Revised copy</label><textarea id="b" spellcheck="false" placeholder="The text as it should be..."></textarea></div>
+      </div>
+      <div class="bar">
+        <button type="button" class="key" id="mark">Mark the proof</button>
+        <button type="button" class="key ghost" id="sample">Load a sample</button>
+        <button type="button" class="key ghost" id="copy-diff">Copy as unified diff</button>
+        <label class="opt"><input type="checkbox" id="ic"> Ignore case</label>
+        <label class="opt"><input type="checkbox" id="iw"> Ignore leading and trailing spaces</label>
+      </div>
+      <div class="galley">
+        <div class="ghead"><span>Galley 1 · first proof</span><span id="tally" aria-live="polite"></span></div>
+        <div id="proof"></div>
+      </div>
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="dele" viewBox="0 0 22 16"><path d="M2 12 C 6 2, 13 2, 13 8 C 13 12, 7 12, 9 6 C 10 2, 15 1, 20 4" fill="none" stroke="#c8102e" stroke-width="1.6" stroke-linecap="round"/></symbol></svg>
+      <section class="notes">
+        <h2>How to read the marks</h2>
+        <p>A galley proof is the long, unpaginated print a typesetter pulled so the proofreader could mark corrections before the pages were made up. The marks are a small standard language, still used today (ISO 5776 and the Chicago Manual of Style both list them). This page uses the three that matter for a comparison: a word to remove is struck through in the text and answered with a dele (a looped d) in the margin; a place where words go in gets a caret in the text, with the new words written in the margin and closed with a slash; when a whole line is new it is written in place in red so it stays readable.</p>
+        <h3>What is compared</h3>
+        <p>Lines first, then words inside the lines that changed. Two copies with only a comma moved will show that comma and nothing else. Ignore case treats Fox and fox as the same word; ignore spaces trims each line before comparing so re-indented code does not light up the whole proof.</p>
+        <details><summary>Does it show character-level differences?</summary><p>Word level. A changed letter marks the whole word, which is how a proofreader works: the word is struck and the corrected word goes in the margin.</p></details>
+        <details><summary>Can I compare two files?</summary><p>Paste them. Anything up to a few thousand lines compares in a moment in your browser; nothing is uploaded.</p></details>
+        <details><summary>What is a unified diff?</summary><p>The plain-text format git and patch use: a header, then every line prefixed with a space (unchanged), minus (removed) or plus (added). The copy button gives you one for pasting into a review or a commit message.</p></details>
+      </section>
+      <div class="foot"><span>Galley · dele · caret · slash</span><a href="https://tools.muhammadhassaanjaved.com/">All tools</a></div>
+      <details class="tool-feedback ">
+      <summary>Suggest an improvement</summary>
+      <form id="tool-feedback-form" novalidate>
+        <label><span>What could be better?</span><textarea name="improvement" rows="3" required maxlength="2000" placeholder="Tell me what is missing or what could work better"></textarea></label>
+        <label><span>Your email (optional, only if you want a reply)</span><input type="email" name="replyto" maxlength="200" placeholder="your@email.com"></label>
+        <input type="text" name="botcheck" class="tool-feedback-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit">Send</button>
+        <p id="tool-feedback-status" role="status" aria-live="polite"></p>
+      </form>
+    </details>
     </main>
-
-    <a href="https://tools.muhammadhassaanjaved.com/" id="hub-bubble" class="crusher-tool-fab" title="View All Tools" target="_blank" rel="noopener noreferrer">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="3" width="7" height="7"></rect>
-            <rect x="14" y="3" width="7" height="7"></rect>
-            <rect x="14" y="14" width="7" height="7"></rect>
-            <rect x="3" y="14" width="7" height="7"></rect>
-        </svg>
-    </a>
-
-    <crusher-style-switcher
-      default-theme="minimal"
-      default-brand="#0ea5e9"
-      hide-themes
-      hide-theme-color>
-        <svg slot="mode-light-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"/></svg>
-        <svg slot="mode-dark-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/></svg>
-    </crusher-style-switcher>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/crusher-ui-kit@1.2.1/dist/crusher-ui.standalone.esm.js" integrity="sha384-49DxFeXn1ckPw9AmqDudkw1VT513Id+j1qJmkXCZBAiIaNechVSDTNnsKThtI54K" crossorigin="anonymous"></script>
-
     <script>
-        const compareBtn = document.getElementById('compare-btn');
-        const diffOutput = document.getElementById('diff-output');
-        const text1El = document.getElementById('text1');
-        const text2El = document.getElementById('text2');
 
-        function makeToken(text, kind) {
-            const span = document.createElement('span');
-            span.className = 'diff-token diff-' + kind;
-            span.textContent = text + ' ';
-            return span;
-        }
+const h = (tag, style, text, cls) => { const e = document.createElement(tag); if (style) e.style.cssText = style; if (text != null) e.textContent = text; if (cls) e.className = cls; return e; };
+const copyBtn = (btn, getText, label, done) => btn.addEventListener('click', async () => { try { await navigator.clipboard.writeText(getText()); btn.textContent = done || 'Copied'; } catch (e) { btn.textContent = 'Select to copy'; } setTimeout(() => { btn.textContent = label; }, 1400); });
+const pressGroup = (sel, onPick) => document.querySelectorAll(sel).forEach(b => b.addEventListener('click', () => { document.querySelectorAll(sel).forEach(x => x.setAttribute('aria-pressed', String(x === b))); onPick(b); }));
 
-        compareBtn.addEventListener('click', () => {
-            const t1 = text1El.value;
-            const t2 = text2El.value;
-            const w1 = t1.split(/\s+/);
-            const w2 = t2.split(/\s+/);
 
-            diffOutput.replaceChildren();
+    const $ = (id) => document.getElementById(id);
+    const clear = (e) => { while (e.firstChild) e.removeChild(e.firstChild); };
+    const A = $('a'), B = $('b'), proof = $('proof'), tally = $('tally'), ic = $('ic'), iw = $('iw');
+    const NS = 'http://www.w3.org/2000/svg';
+    const norm = (s) => { let t = s; if (iw.checked) t = t.trim(); if (ic.checked) t = t.toLowerCase(); return t; };
+    function lcs(X, Y, eq) {
+      let s = 0; while (s < X.length && s < Y.length && eq(X[s], Y[s])) s++;
+      let e = 0; while (e < X.length - s && e < Y.length - s && eq(X[X.length - 1 - e], Y[Y.length - 1 - e])) e++;
+      const ops = [];
+      for (let i = 0; i < s; i++) ops.push({ t: '=', a: i, b: i });
+      const n = X.length - s - e, m = Y.length - s - e;
+      if (n * m > 4000000) { for (let i = 0; i < n; i++) ops.push({ t: '-', a: s + i }); for (let j = 0; j < m; j++) ops.push({ t: '+', b: s + j }); }
+      else {
+        const W = m + 1, L = new Uint32Array((n + 1) * W);
+        for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--) L[i * W + j] = eq(X[s + i], Y[s + j]) ? L[(i + 1) * W + j + 1] + 1 : Math.max(L[(i + 1) * W + j], L[i * W + j + 1]);
+        let i = 0, j = 0;
+        while (i < n && j < m) { if (eq(X[s + i], Y[s + j])) { ops.push({ t: '=', a: s + i, b: s + j }); i++; j++; } else if (L[(i + 1) * W + j] >= L[i * W + j + 1]) { ops.push({ t: '-', a: s + i }); i++; } else { ops.push({ t: '+', b: s + j }); j++; } }
+        while (i < n) { ops.push({ t: '-', a: s + i }); i++; }
+        while (j < m) { ops.push({ t: '+', b: s + j }); j++; }
+      }
+      for (let k = 0; k < e; k++) ops.push({ t: '=', a: X.length - e + k, b: Y.length - e + k });
+      return ops;
+    }
+    const tokens = (line) => line.split(/(\s+)/).filter((t) => t.length);
+    const deleMark = () => { const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'dele'); svg.setAttribute('aria-label', 'dele'); const use = document.createElementNS(NS, 'use'); use.setAttribute('href', '#dele'); svg.appendChild(use); return svg; };
+    const stats = { lines: 0, del: 0, ins: 0 };
+    function row(num, cls) { const r = h('div', null, null, 'ln' + (cls ? ' ' + cls : '')); r.appendChild(h('span', null, num, 'n')); const t = h('div', null, null, 't'), m = h('div', null, null, 'm'); r.appendChild(t); r.appendChild(m); proof.appendChild(r); return { t, m }; }
+    function margin(m, node) { if (m.childNodes.length) m.appendChild(h('span', null, '/', 'sl')); m.appendChild(node); }
+    function wordRow(num, oldLine, newLine) {
+      const X = tokens(oldLine), Y = tokens(newLine);
+      const ops = X.length * Y.length > 250000 ? null : lcs(X, Y, (p, q) => norm(p) === norm(q));
+      const { t, m } = row(num, 'chg');
+      if (!ops) { const d = document.createElement('del'); d.textContent = oldLine; t.appendChild(d); margin(m, deleMark()); const i = document.createElement('ins'); i.textContent = newLine; t.appendChild(h('span', null, ' \u2038', 'caret')); t.appendChild(i); stats.del++; stats.ins++; return; }
+      let k = 0;
+      while (k < ops.length) {
+        const op = ops[k];
+        if (op.t === '=') { t.appendChild(document.createTextNode(X[op.a])); k++; continue; }
+        let delText = '', insText = '';
+        while (k < ops.length && ops[k].t !== '=') { if (ops[k].t === '-') delText += X[ops[k].a]; else insText += Y[ops[k].b]; k++; }
+        if (delText.trim()) { const d = document.createElement('del'); d.textContent = delText; t.appendChild(d); margin(m, deleMark()); stats.del++; }
+        else if (delText) t.appendChild(document.createTextNode(delText));
+        if (insText.trim()) {
+          t.appendChild(h('span', null, '\u2038', 'caret'));
+          if (insText.trim().length > 36) { const i = document.createElement('ins'); i.textContent = insText; t.appendChild(i); margin(m, h('span', null, '\u2038')); }
+          else margin(m, h('span', null, insText.trim()));
+          stats.ins++;
+        } else if (insText) t.appendChild(document.createTextNode(insText));
+      }
+      stats.lines++;
+    }
+    function render(ops, X, Y) {
+      clear(proof); stats.lines = 0; stats.del = 0; stats.ins = 0;
+      let k = 0;
+      while (k < ops.length) {
+        const op = ops[k];
+        if (op.t === '=') { const { t } = row(String(op.a + 1)); t.textContent = X[op.a] || '\u00a0'; k++; continue; }
+        const dels = [], inss = [];
+        while (k < ops.length && ops[k].t !== '=') { if (ops[k].t === '-') dels.push(ops[k].a); else inss.push(ops[k].b); k++; }
+        const pairs = Math.min(dels.length, inss.length);
+        for (let i = 0; i < pairs; i++) wordRow(String(dels[i] + 1), X[dels[i]], Y[inss[i]]);
+        for (let i = pairs; i < dels.length; i++) { const { t, m } = row(String(dels[i] + 1), 'chg'); const d = document.createElement('del'); d.textContent = X[dels[i]] || '\u00a0'; t.appendChild(d); margin(m, deleMark()); stats.lines++; stats.del++; }
+        for (let i = pairs; i < inss.length; i++) { const { t, m } = row('\u00b7', 'chg'); t.appendChild(h('span', null, '\u2038 ', 'caret')); const ins = document.createElement('ins'); ins.textContent = Y[inss[i]] || '\u00a0'; t.appendChild(ins); margin(m, h('span', null, 'new line')); stats.lines++; stats.ins++; }
+      }
+    }
+    let lastOps = null, lastX = null, lastY = null;
+    function mark() {
+      const X = A.value.split('\n'), Y = B.value.split('\n');
+      if (!A.value && !B.value) { clear(proof); proof.appendChild(h('p', null, 'Nothing to read yet. Paste two versions of a text above.', 'empty')); tally.textContent = ''; lastOps = null; return; }
+      const ops = lcs(X, Y, (p, q) => norm(p) === norm(q));
+      lastOps = ops; lastX = X; lastY = Y;
+      render(ops, X, Y);
+      clear(tally);
+      if (!stats.lines) { tally.textContent = 'Clean proof: the copies match'; return; }
+      const b = h('b', null, stats.lines + (stats.lines === 1 ? ' line marked' : ' lines marked')); tally.appendChild(b);
+      tally.appendChild(document.createTextNode(' · ' + stats.del + (stats.del === 1 ? ' deletion' : ' deletions') + ' · ' + stats.ins + (stats.ins === 1 ? ' insertion' : ' insertions')));
+    }
+    let timer = null;
+    const soon = () => { clearTimeout(timer); timer = setTimeout(mark, 220); };
+    A.addEventListener('input', soon); B.addEventListener('input', soon); ic.addEventListener('change', mark); iw.addEventListener('change', mark);
+    $('mark').addEventListener('click', mark);
+    $('sample').addEventListener('click', () => {
+      A.value = 'The quick brown fox jumps over the lazy dog.\nIt was the best of times, it was the worst of times.\nA journey of a thousand miles begins with a single step.\nCall me Ishmael.';
+      B.value = 'The quick red fox leaps over the lazy dog.\nIt was the best of times, it was the worst of times.\nA journey of a thousand miles begins with one step.\nCall me Ishmael.\nSo it goes.';
+      mark();
+    });
+    copyBtn($('copy-diff'), () => {
+      if (!lastOps) return '';
+      const lines = ['--- original', '+++ revised', '@@ -1,' + lastX.length + ' +1,' + lastY.length + ' @@'];
+      for (const op of lastOps) lines.push(op.t === '=' ? ' ' + lastX[op.a] : op.t === '-' ? '-' + lastX[op.a] : '+' + lastY[op.b]);
+      return lines.join('\n') + '\n';
+    }, 'Copy as unified diff');
+    $('sample').click();
 
-            let i = 0, j = 0;
-            while (i < w1.length || j < w2.length) {
-                if (w1[i] === w2[j]) {
-                    diffOutput.appendChild(makeToken(w1[i] || '', 'same'));
-                    i++; j++;
-                } else if (w2[j]) {
-                    diffOutput.appendChild(makeToken(w2[j], 'added'));
-                    j++;
-                } else {
-                    break;
-                }
-            }
-        });
+(function() {
+  const KEY = '30e570c5-aeeb-439d-8a8a-bd2516a5dc5d';
+  const ENDPOINT = 'https://api.web3forms.com/submit';
+  const form = document.getElementById('tool-feedback-form');
+  const status = document.getElementById('tool-feedback-status');
+  if (!form || !status) return;
+  const toolName = (document.title || 'tool').trim();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    fd.set('access_key', KEY);
+    fd.set('subject', '[' + toolName + '] Improvement suggestion');
+    fd.set('from_name', toolName);
+    const btn = form.querySelector('button[type="submit"]');
+    const orig = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Sending';
+    status.textContent = ''; delete status.dataset.kind;
+    try {
+      const res = await fetch(ENDPOINT, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
+      const data = await res.json();
+      if (data.success) { form.reset(); status.textContent = 'Thanks, your suggestion is in.'; status.dataset.kind = 'ok'; }
+      else { status.textContent = data.message || 'Sorry, that did not go through. Try again later?'; status.dataset.kind = 'error'; }
+    } catch (err) { status.textContent = 'Network error. Try again?'; status.dataset.kind = 'error'; }
+    finally { btn.disabled = false; btn.textContent = orig; }
+  });
+})();
     </script>
-
-    <section class="tool-feedback" aria-label="Tool feedback">
-        <details class="tool-feedback-details">
-            <summary class="tool-feedback-trigger">Suggest an improvement</summary>
-            <form id="tool-feedback-form" class="tool-feedback-form" novalidate>
-                <label class="tool-feedback-field">
-                    <span>What could be better?</span>
-                    <textarea name="improvement" rows="3" required maxlength="2000" class="crusher-tool-control" placeholder="Tell me what's missing or what could work better…"></textarea>
-                </label>
-                <label class="tool-feedback-field">
-                    <span>Your email (optional, only if you want a reply)</span>
-                    <input type="email" name="replyto" maxlength="200" class="crusher-tool-control" placeholder="your@email.com">
-                </label>
-                <input type="text" name="botcheck" class="tool-feedback-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-                <div>
-                    <button type="submit" class="crusher-tool-action tool-feedback-submit">Send</button>
-                </div>
-                <p id="tool-feedback-status" class="tool-feedback-status" role="status" aria-live="polite"></p>
-            </form>
-        </details>
-    </section>
-
-    <script>
-        (function() {
-            const KEY = '30e570c5-aeeb-439d-8a8a-bd2516a5dc5d';
-            const ENDPOINT = 'https://api.web3forms.com/submit';
-            const form = document.getElementById('tool-feedback-form');
-            const status = document.getElementById('tool-feedback-status');
-            if (!form || !status) return;
-            const toolName = (document.title || 'tool').trim();
-            const subject = '[' + toolName + '] Improvement suggestion';
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const fd = new FormData(form);
-                fd.set('access_key', KEY);
-                fd.set('subject', subject);
-                fd.set('from_name', toolName);
-                const btn = form.querySelector('button[type="submit"]');
-                const orig = btn.textContent;
-                btn.disabled = true; btn.textContent = 'Sending…';
-                status.textContent = ''; delete status.dataset.kind;
-                try {
-                    const res = await fetch(ENDPOINT, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
-                    const data = await res.json();
-                    if (data.success) {
-                        form.reset();
-                        status.textContent = 'Thanks — your suggestion is in.';
-                        status.dataset.kind = 'ok';
-                    } else {
-                        status.textContent = data.message || 'Sorry, that did not go through. Try again later?';
-                        status.dataset.kind = 'error';
-                    }
-                } catch (err) {
-                    status.textContent = 'Network error. Try again?';
-                    status.dataset.kind = 'error';
-                } finally {
-                    btn.disabled = false; btn.textContent = orig;
-                }
-            });
-        })();
-    </script>
-
 </body>
 </html>
