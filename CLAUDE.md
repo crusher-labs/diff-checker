@@ -1,5 +1,7 @@
-@AGENTS.md
+# Diff Checker (moved)
 
-## Notes
+This tool moved to the consolidated tools site on 2026-09-03. **Do not edit anything here.**
 
-- World page (galley proof). Conventions: workspace `AGENTS.md`, `docs/design-language.md` (tools section), the atlas. Verify at 1440 and 390 with Playwright `setViewportSize` before shipping.
+- Live: <https://tools.muhammadhassaanjaved.com/diff-checker/>
+- Source: `tools-hub` repo, `diff-checker/index.html` (workspace path `x:/crusher-labs/repos/tools-hub/diff-checker/`)
+- This repo serves a redirect stub only, and is kept for its history.
